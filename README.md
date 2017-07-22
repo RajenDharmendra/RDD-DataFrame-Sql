@@ -39,3 +39,43 @@ Datasets are limited to classes that implement the Scala Product trait, such as 
       // optimized direct access to off-heap memory without deserializing objects
       val ds: Dataset[Person] = …
      val ds2: Dataset[String] = ds.map(person => person.lastName)
+     
+     
+     
+# Getting Started with Scala     
+
+Here are some code samples to help you get started fast with Apache Spark 2.0 and Scala.
+
+Creating SparkSession
+
+SparkSession is now the starting point for a Spark driver program, instead of creating a SparkContext and a SQLContext.
+
+        val spark = SparkSession.builder
+              .master("local[*]")
+              .appName("Example")
+              .getOrCreate()
+
+        // accessing legacy SparkContext and SQLContext 
+        spark.sparkContext
+        spark.sqlContext
+
+
+Creating a Dataset from a collection
+
+SparkSession provides a createDataset method that accepts a collection.
+
+
+        val ds: Dataset[String] = spark.createDataset(List("one","two","three"))
+        
+Converting an RDD to a Dataset
+
+SparkSession provides a createDataset method for converting an RDD to a Dataset. This only works if you import spark.implicits_ (where spark is the name of the SparkSession variable).
+
+        // always import implicits so that Spark can infer types when creating Datasets
+        import spark.implicits._
+
+        val rdd: RDD[Person] = ??? // assume this exists
+        val dataset: Dataset[Person] = spark.createDataset[Person](rdd)
+        
+        
+
