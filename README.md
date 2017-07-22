@@ -78,4 +78,31 @@ SparkSession provides a createDataset method for converting an RDD to a Dataset.
         val dataset: Dataset[Person] = spark.createDataset[Person](rdd)
         
         
+Converting a DataFrame to a Dataset
 
+A DataFrame (which is really a Dataset[Row]) can be converted to a Dataset of a specific class by performing a map() operation.
+
+        // read a text file into a DataFrame a.k.a. Dataset[Row]
+        var df: Dataset[Row] = spark.read.text("people.txt")
+
+        // use map() to convert to a Dataset of a specific class
+        var ds: Dataset[Person] = spark.read.text("people.txt")
+              .map(row => parsePerson(row))
+
+        def parsePerson(row: Row) : Person = ??? // fill in parsing logic here
+
+
+Reading a CSV directly as a Dataset
+
+The built-in CSV support makes it easy to read a CSV and return a Dataset of a specific case class. This only works if the CSV contains a header row and the field names match the case class.
+
+        val ds: Dataset[Person] = spark.read
+            .option("header","true")
+            .csv("people.csv")
+            .as[Person]
+            
+# Spark+Scala beats Spark+Java    
+
+Using Apache Spark with Java is harder than using Apache Spark with Scala and we spent significantly longer upgrading our Java examples than we did with our Scala examples, including running into some confusing runtime errors that were hard to track down (for example, we hit a runtime error with Spark’s code generation because one of our Java classes was not declared as public).
+
+Also, we weren’t always able to use concise lambda functions even though we are using Java 8, and had to revert to anonymous inner classes with verbose (and confusing) syntax.
