@@ -25,11 +25,9 @@
 <p>Both the RDD API and the Dataset API represent data sets of a specific class. For instance, you can create an <span style="font-family: Source Code Pro,monospace; font-size: 10pt;">RDD[Person]</span> as well as a <span style="font-size: 10pt; font-family: Source Code Pro,monospace;">Dataset[Person]</span> so both can provide compile-time type-safety. Both can also be used with the generic Row structure provided in Spark for cases where classes might not exist that represent the data being manipulated, such as when reading CSV files.</p>
 <p>RDDs can be used with any Java or Scala class and operate by manipulating those objects directly with all of the associated costs of object creation, serialization and garbage collection.</p>
 <p>Datasets are limited to classes that implement the Scala Product trait, such as case classes. There is a very good reason for this limitation. Datasets store data in an optimized binary format, often in off-heap memory, to avoid the costs of deserialization and garbage collection. Even though it feels like you are coding against regular objects, Spark is really generating its own optimized byte-code for accessing the data directly.</p>
-<p><strong>RDD</strong></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+<p><strong>RDD</strong></p>
 
-		<div id="crayon-5973b048cdf37476095573" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
 		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
 // raw object manipulation
 val rdd: RDD[Person] = …
 val rdd2: RDD[String] = rdd.map(person =&gt; person.lastName)</textarea></div>
@@ -44,12 +42,8 @@ val rdd2: RDD[String] = rdd.map(person =&gt; person.lastName)</textarea></div>
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0006 seconds] -->
-<p><strong>Dataset</strong></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
 
-		<div id="crayon-5973b048cdf3e484041759" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
+<p><strong>Dataset</strong></p>
 // optimized direct access to off-heap memory without deserializing objects
 val ds: Dataset[Person] = …
 val ds2: Dataset[String] = ds.map(person =&gt; person.lastName)</textarea></div>
@@ -57,23 +51,19 @@ val ds2: Dataset[String] = ds.map(person =&gt; person.lastName)</textarea></div>
 				<table class="crayon-table">
 					<tr class="crayon-row">
 				<td class="crayon-nums " data-settings="show">
-					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 26px !important;"><div class="crayon-num" data-line="crayon-5973b048cdf3e484041759-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5973b048cdf3e484041759-2">2</div><div class="crayon-num" data-line="crayon-5973b048cdf3e484041759-3">3</div></div>
+				
 				</td>
 						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 26px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5973b048cdf3e484041759-1"><span class="crayon-c">// optimized direct access to off-heap memory without deserializing objects</span></div><div class="crayon-line crayon-striped-line" id="crayon-5973b048cdf3e484041759-2"><span class="crayon-e">val </span><span class="crayon-v">ds</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">Dataset</span><span class="crayon-sy">[</span><span class="crayon-v">Person</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span>…</div><div class="crayon-line" id="crayon-5973b048cdf3e484041759-3"><span class="crayon-e">val </span><span class="crayon-v">ds2</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">Dataset</span><span class="crayon-sy">[</span><span class="crayon-t">String</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">ds</span><span class="crayon-sy">.</span><span class="crayon-e">map</span><span class="crayon-sy">(</span><span class="crayon-v">person</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">person</span><span class="crayon-sy">.</span><span class="crayon-v">lastName</span><span class="crayon-sy">)</span></div></div></td>
 					</tr>
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0004 seconds] -->
+
 <p></p>
 <h2>Getting Started with Scala</h2>
 <p>Here are some code samples to help you get started fast with Apache Spark 2.0 and Scala.</p>
 <h3>Creating SparkSession</h3>
-<p>SparkSession is now the starting point for a Spark driver program, instead of creating a SparkContext and a SQLContext.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
-
-		<div id="crayon-5973b048cdf40069825256" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
+<p>SparkSession is now the starting point for a Spark driver program, instead of creating a SparkContext and a SQLContext.</p>
 val spark = SparkSession.builder
       .master("local[*]")
       .appName("Example")
@@ -86,21 +76,19 @@ spark.sqlContext</textarea></div>
 				<table class="crayon-table">
 					<tr class="crayon-row">
 				<td class="crayon-nums " data-settings="show">
-					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 26px !important;"><div class="crayon-num" data-line="crayon-5973b048cdf40069825256-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5973b048cdf40069825256-2">2</div><div class="crayon-num" data-line="crayon-5973b048cdf40069825256-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5973b048cdf40069825256-4">4</div><div class="crayon-num" data-line="crayon-5973b048cdf40069825256-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5973b048cdf40069825256-6">6</div><div class="crayon-num" data-line="crayon-5973b048cdf40069825256-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5973b048cdf40069825256-8">8</div></div>
+					
 				</td>
 						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 26px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5973b048cdf40069825256-1"><span class="crayon-e">val </span><span class="crayon-v">spark</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">SparkSession</span><span class="crayon-sy">.</span><span class="crayon-i">builder</span></div><div class="crayon-line crayon-striped-line" id="crayon-5973b048cdf40069825256-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">.</span><span class="crayon-e">master</span><span class="crayon-sy">(</span><span class="crayon-s">"local[*]"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5973b048cdf40069825256-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">.</span><span class="crayon-e">appName</span><span class="crayon-sy">(</span><span class="crayon-s">"Example"</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5973b048cdf40069825256-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">.</span><span class="crayon-e">getOrCreate</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5973b048cdf40069825256-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5973b048cdf40069825256-6"><span class="crayon-c">// accessing legacy SparkContext and SQLContext </span></div><div class="crayon-line" id="crayon-5973b048cdf40069825256-7"><span class="crayon-v">spark</span><span class="crayon-sy">.</span><span class="crayon-e">sparkContext</span></div><div class="crayon-line crayon-striped-line" id="crayon-5973b048cdf40069825256-8"><span class="crayon-v">spark</span><span class="crayon-sy">.</span><span class="crayon-v">sqlContext</span></div></div></td>
 					</tr>
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0004 seconds] -->
+
 <p></p>
 <h3>Creating a Dataset from a collection</h3>
 <p>SparkSession provides a createDataset method that accepts a collection.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
 
-		<div id="crayon-5973b048cdf43465253657" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
+	
 var ds: Dataset[String] = spark.createDataset(List("one","two","three"))</textarea></div>
 			<div class="crayon-main" style="">
 				<table class="crayon-table">
@@ -113,14 +101,12 @@ var ds: Dataset[String] = spark.createDataset(List("one","two","three"))</textar
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0003 seconds] -->
+
 <p></p>
 <h3>Converting an RDD to a Dataset</h3>
 <p>SparkSession provides a createDataset method for converting an RDD to a Dataset. This only works if you import spark.implicits_ (where spark is the name of the SparkSession variable).</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
 
-		<div id="crayon-5973b048cdf45162821502" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
 		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
 // always import implicits so that Spark can infer types when creating Datasets
 import spark.implicits._
 
@@ -140,11 +126,7 @@ val dataset: Dataset[Person] = spark.createDataset[Person](rdd)</textarea></div>
 <!-- [Format Time: 0.0005 seconds] -->
 <p></p>
 <h3>Converting a DataFrame to a Dataset</h3>
-<p>A DataFrame (which is really a Dataset[Row]) can be converted to a Dataset of a specific class by performing a map() operation.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
-
-		<div id="crayon-5973b048cdf47119930592" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
+<p>A DataFrame (which is really a Dataset[Row]) can be converted to a Dataset of a specific class by performing a map() operation.</p>
 // read a text file into a DataFrame a.k.a. Dataset[Row]
 var df: Dataset[Row] = spark.read.text("people.txt")
 
@@ -164,14 +146,11 @@ def parsePerson(row: Row) : Person = ??? // fill in parsing logic here</textarea
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0008 seconds] -->
+
 <p></p>
 <h3>Reading a CSV directly as a Dataset</h3>
 <p>The built-in CSV support makes it easy to read a CSV and return a Dataset of a specific case class. This only works if the CSV contains a header row and the field names match the case class.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
 
-		<div id="crayon-5973b048cdf49097271905" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
 val ds: Dataset[Person] = spark.read
     .option("header","true")
     .csv("people.csv")
@@ -187,16 +166,12 @@ val ds: Dataset[Person] = spark.read
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0004 seconds] -->
+
 <p></p>
 <h2>Getting Started with Java</h2>
 <p>Here are some code samples to help you get started fast with Spark 2.0 and Java.</p>
 <h3>Creating SparkSession</h3>
-<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
-
-		<div id="crayon-5973b048cdf4b435255968" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
+<p></p>
 SparkSession spark = SparkSession.builder()
   .master("local[*]")
   .appName("Example")
@@ -215,14 +190,11 @@ SparkSession spark = SparkSession.builder()
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0006 seconds] -->
+
 <p></p>
 <h3>Creating a Dataset from a collection</h3>
 <p>SparkSession provides a createDataset method that accepts a collection.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
 
-		<div id="crayon-5973b048cdf4d882973012" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
 Dataset&lt;Person&gt; ds = spark.createDataset(
     Collections.singletonList(new Person(1, "Joe", "Bloggs")),
     Encoders.bean(Person.class)
@@ -238,14 +210,10 @@ Dataset&lt;Person&gt; ds = spark.createDataset(
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0005 seconds] -->
+
 <p></p>
 <h3>Converting an RDD to a Dataset</h3>
-<p>SparkSession provides a createDataset method for converting an RDD to a Dataset.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
-
-		<div id="crayon-5973b048cdf4f464791789" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
+<p>SparkSession provides a createDataset method for converting an RDD to a Dataset.</p>
 Dataset&lt;Person&gt; ds = spark.createDataset(
   javaRDD.rdd(), // convert a JavaRDD to an RDD
   Encoders.bean(Person.class)
@@ -264,11 +232,7 @@ Dataset&lt;Person&gt; ds = spark.createDataset(
 <!-- [Format Time: 0.0004 seconds] -->
 <p></p>
 <h3>Converting a DataFrame to a Dataset</h3>
-<p>A DataFrame (which is really a Dataset[Row]) can be converted to a Dataset of a specific class by performing a map() operation.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
-
-		<div id="crayon-5973b048cdf51235861378" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
+<p>A DataFrame (which is really a Dataset[Row]) can be converted to a Dataset of a specific class by performing a map() operation.</p>
 Dataset&lt;Person&gt; ds = df.map(new MapFunction&lt;Row, Person&gt;() {
   @Override
   public Person call(Row value) throws Exception {
@@ -288,14 +252,11 @@ Dataset&lt;Person&gt; ds = df.map(new MapFunction&lt;Row, Person&gt;() {
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0010 seconds] -->
+
 <p></p>
 <h3>Reading a CSV directly as a Dataset</h3>
 <p>The built-in CSV support makes it easy to read a CSV and return a Dataset of a specific case class. This only works if the CSV contains a header row and the field names match the case class.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
 
-		<div id="crayon-5973b048cdf52237264663" class="crayon-syntax crayon-theme-github crayon-font-monospace crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style=" margin-top: 40px; margin-bottom: 40px; font-size: 14px !important; line-height: 26px !important;">
-		
-			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4; font-size: 14px !important; line-height: 26px !important;">
 Dataset&lt;Person&gt; ds = spark.read()
   .option("header", "true")
   .csv("testdata/people.csv")
@@ -311,7 +272,7 @@ Dataset&lt;Person&gt; ds = spark.read()
 				</table>
 			</div>
 		</div>
-<!-- [Format Time: 0.0005 seconds] -->
+
 <p></p>
 <h2>Spark+Scala beats Spark+Java</h2>
 <p>Using Apache Spark with Java is harder than using Apache Spark with Scala and we spent significantly longer upgrading our Java examples than we did with our Scala examples, including running into some confusing runtime errors that were hard to track down (for example, we hit a runtime error with Spark’s code generation because one of our Java classes was not declared as public).</p>
