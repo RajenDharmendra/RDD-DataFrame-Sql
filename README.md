@@ -106,3 +106,9 @@ The built-in CSV support makes it easy to read a CSV and return a Dataset of a s
 Using Apache Spark with Java is harder than using Apache Spark with Scala and we spent significantly longer upgrading our Java examples than we did with our Scala examples, including running into some confusing runtime errors that were hard to track down (for example, we hit a runtime error with Spark’s code generation because one of our Java classes was not declared as public).
 
 Also, we weren’t always able to use concise lambda functions even though we are using Java 8, and had to revert to anonymous inner classes with verbose (and confusing) syntax.
+
+# Conclusion
+
+Spark 2.0 represents a significant milestone in the evolution of this open source project and provides cleaner APIs and improved performance compared to the 1.6 release.
+
+The Scala API is a joy to code with, but the Java API can often be frustrating. It’s worth biting the bullet and switching to Scala.
