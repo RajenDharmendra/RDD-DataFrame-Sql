@@ -20,3 +20,22 @@
 <li>Performing a <span style="font-family: Source Code Pro,monospace; font-size: 10pt;">map()</span> operation on a <span style="font-family: Source Code Pro,monospace; font-size: 10pt;">Dataset </span>now returns a <span style="font-family: Source Code Pro,monospace; font-size: 10pt;">Dataset </span>rather than an RDD, reducing the need to keep switching between the two APIs, and improving performance.</li>
 <li>Some Java functional interfaces, such as <span style="font-family: Source Code Pro,monospace; font-size: 10pt;">FlatMapFunction</span>, have been updated to return <span style="font-family: Source Code Pro,monospace; font-size: 10pt;">Iterator&lt;T&gt;</span> rather than <span style="font-family: Source Code Pro,monospace; font-size: 10pt;">Iterable&lt;T&gt;</span>.</li>
 </ul>
+
+# RDD vs. Dataset 2.0
+
+
+Both the RDD API and the Dataset API represent data sets of a specific class. For instance, you can create an RDD[Person] as well as a Dataset[Person] so both can provide compile-time type-safety. Both can also be used with the generic Row structure provided in Spark for cases where classes might not exist that represent the data being manipulated, such as when reading CSV files.
+
+RDDs can be used with any Java or Scala class and operate by manipulating those objects directly with all of the associated costs of object creation, serialization and garbage collection.
+
+Datasets are limited to classes that implement the Scala Product trait, such as case classes. There is a very good reason for this limitation. Datasets store data in an optimized binary format, often in off-heap memory, to avoid the costs of deserialization and garbage collection. Even though it feels like you are coding against regular objects, Spark is really generating its own optimized byte-code for accessing the data directly.
+
+# RDD
+    // raw object manipulation
+    val rdd: RDD[Person] = …
+    val rdd2: RDD[String] = rdd.map(person => person.lastName)
+    
+# Dataset    
+      // optimized direct access to off-heap memory without deserializing objects
+      val ds: Dataset[Person] = …
+     val ds2: Dataset[String] = ds.map(person => person.lastName)
